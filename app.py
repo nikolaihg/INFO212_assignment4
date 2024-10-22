@@ -31,56 +31,39 @@ def home():
 
 # Your other routes and logic here
 
-# Sample route to create a car
-# @app.route('/create-car', methods=['POST'])
-# def create_car():
-#     data = request.json  # This was causing the error because request wasn't imported
-#     query = """
-#     CREATE (c:Car {make: $make, model: $model, year: $year, status: 'available'})
-#     RETURN c
-#     """
-#     parameters = {
-#         "make": data['make'],
-#         "model": data['model'],
-#         "year": data['year']
-#     }
-#     result = execute_query(query, parameters)
-#     
-#     return jsonify({"message": "Car created successfully!", "car": result.single()[0]}), 201
-
-## @app.route('/create-car', methods=['POST'])
-## def create_car():
-##     # Temporarily bypass database to test
-##     return jsonify({"message": "Car creation endpoint hit"}), 201
-
-# Sample route to create a car
 @app.route('/create-car', methods=['POST'])
 def create_car():
-    try:
-        data = request.json  # Get the JSON data from the request
-        query = """
-        CREATE (c:Car {make: $make, model: $model, year: $year, status: 'available'})
-        RETURN c
-        """
-        parameters = {
-            "make": data['make'],
-            "model": data['model'],
-            "year": data['year']
-        }
-        
-        result = execute_query(query, parameters)
+    # Temporarily bypass database to test
+    return jsonify({"message": "Car creation endpoint hit"}), 201
 
-        # Get the single record from the result
-        car_node = result.single()
-        if car_node is None:
-            return jsonify({"error": "Car creation failed!"}), 500
-
-        # Return success message and created car data
-        return jsonify({"message": "Car created successfully!", "car": dict(car_node[0])}), 201
-
-    except Exception as e:
-        print(f"Error: {e}")
-        return jsonify({"error": str(e)}), 500
+## Sample route to create a car
+#@app.route('/create-car', methods=['POST'])
+#def create_car():
+#    try:
+#        data = request.json  # Get the JSON data from the request
+#        query = """
+#        CREATE (c:Car {make: $make, model: $model, year: $year, status: 'available'})
+#        RETURN c
+#        """
+#        parameters = {
+#            "make": data['make'],
+#            "model": data['model'],
+#            "year": data['year']
+#        }
+#        
+#        result = execute_query(query, parameters)
+#
+#        # Get the single record from the result
+#        car_node = result.single()
+#        if car_node is None:
+#            return jsonify({"error": "Car creation failed!"}), 500
+#
+#        # Return success message and created car data
+#        return jsonify({"message": "Car created successfully!", "car": dict(car_node[0])}), 201
+#
+#    except Exception as e:
+#        print(f"Error: {e}")
+#        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
