@@ -31,23 +31,6 @@ def home():
 
 # Your other routes and logic here
 
-# Sample route to create a car
-# @app.route('/create-car', methods=['POST'])
-# def create_car():
-#     data = request.json  # This was causing the error because request wasn't imported
-#     query = """
-#     CREATE (c:Car {make: $make, model: $model, year: $year, status: 'available'})
-#     RETURN c
-#     """
-#     parameters = {
-#         "make": data['make'],
-#         "model": data['model'],
-#         "year": data['year']
-#     }
-#     result = execute_query(query, parameters)
-#     
-#     return jsonify({"message": "Car created successfully!", "car": result.single()[0]}), 201
-
 ## @app.route('/create-car', methods=['POST'])
 ## def create_car():
 ##     # Temporarily bypass database to test
