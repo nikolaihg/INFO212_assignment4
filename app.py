@@ -31,15 +31,6 @@ def home():
 
 # Your other routes and logic here
 
-<<<<<<< HEAD
-## @app.route('/create-car', methods=['POST'])
-## def create_car():
-##     # Temporarily bypass database to test
-##     return jsonify({"message": "Car creation endpoint hit"}), 201
-
-# Sample route to create a car
-=======
->>>>>>> nikolai
 @app.route('/create-car', methods=['POST'])
 def create_car():
     # Temporarily bypass database to test
