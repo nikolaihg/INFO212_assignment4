@@ -1,19 +1,10 @@
 from flask import Flask
+from routes.api import api_blueprint
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return 'index'
+# Register the blueprint for API routes
+app.register_blueprint(api_blueprint)
 
-@app.route("/hello")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
-@app.route('/projects/')
-def projects():
-    return 'The project page'
-
-@app.route('/about')
-def about():
-    return 'The about page'
+if __name__ == '__main__':
+    app.run(debug=True)
