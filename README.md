@@ -1,5 +1,12 @@
 # INFO212_assignment4
 
+# Car Rental System
+
+## Overview
+A Flask-based application using Neo4j for managing a car rental service, including CRUD operations for cars, customers, employees, and managing rental transactions.
+
+## Setup
+
 ## 1. requirements:
 ```text
 Flask==2.0.3
