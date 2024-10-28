@@ -5,8 +5,7 @@ from db import driver
 # Initialize Blueprint for car routes
 car_bp = Blueprint('car_bp', __name__)
 
-# Initialize CarModel with driver in each route function
-@car_bp.route('/', methods=['POST'])
+@car_bp.route('/create-car', methods=['POST'])
 def create_car():
     data = request.json
     car_model = CarModel(driver)  # Pass driver here
