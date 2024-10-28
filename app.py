@@ -1,13 +1,18 @@
 from flask import Flask
 from neo4j import GraphDatabase
 from dotenv import load_dotenv
-from config import Config
 from models import CarModel, CustomerModel, EmployeeModel  # Import from `models` package
 from api import api_bp
-
+import os
 
 # Load environment variables
 load_dotenv()
+
+class Config:
+    NEO4J_URI = os.getenv("NEO4J_URI")
+    NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+    NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+    DEBUG = True  # or False, as needed
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -30,8 +35,14 @@ def initialize_database():
     employee_model.create_sample_employees()
     print("Database initialized with sample data.")
 
-# Define routes (using the previously created Blueprint setup)
+# Register the main API blueprint
 app.register_blueprint(api_bp, url_prefix='/api')
+
+# Ensure the driver closes when the app stops
+@app.teardown_appcontext
+def close_driver(exception=None):
+    if driver:
+        driver.close()
 
 
 # Run the app
