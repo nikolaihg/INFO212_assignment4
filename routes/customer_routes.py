@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.customer_model import CustomerModel
+from db import driver
 
 # Initialize Blueprint for customer routes
 customer_bp = Blueprint('customer_bp', __name__)

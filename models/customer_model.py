@@ -1,4 +1,5 @@
-from neo4j import GraphDatabase
+# from neo4j import GraphDatabase
+from db import driver
 
 class CustomerModel:
     def __init__(self, driver):

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.employee_model import EmployeeModel
+from db import driver
 
 # Initialize Blueprint for employee routes
 employee_bp = Blueprint('employee_bp', __name__)

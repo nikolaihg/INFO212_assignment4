@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.car_model import CarModel
+from db import driver
 
 # Initialize Blueprint for car routes
 car_bp = Blueprint('car_bp', __name__)
