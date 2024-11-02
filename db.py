@@ -12,3 +12,7 @@ class Config:
 driver = GraphDatabase.driver(
     Config.NEO4J_URI, auth=(Config.NEO4J_USERNAME, Config.NEO4J_PASSWORD)
 )
+
+def node_to_json(node):
+    node_properties = dict(node.items())
+    return node_properties
