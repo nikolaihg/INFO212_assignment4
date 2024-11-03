@@ -1,45 +1,34 @@
 from flask import Flask
-# from neo4j import GraphDatabase
 from dotenv import load_dotenv
 from models import CarModel, CustomerModel, EmployeeModel
 from api import api_bp
 from db import driver  # Use the driver from db.py
-import os
+from config import Config
 
 # Load environment variables
 load_dotenv()
-#Hei
-class Config:
-    NEO4J_URI = os.getenv("NEO4J_URI")
-    NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
-    NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
-    DEBUG = True  # or False, as needed
 
 # Initialize the Flask app
 app = Flask(__name__)
-# app.config.from_object(Config)
+app.config.from_object(Config)
 
-# # Initialize the Neo4j driver
-# driver = GraphDatabase.driver(Config.NEO4J_URI, auth=(Config.NEO4J_USERNAME, Config.NEO4J_PASSWORD))
-
-# Instantiate models
+# Instantiate models with Neo4j driver from db.py
 car_model = CarModel(driver)
 customer_model = CustomerModel(driver)
 employee_model = EmployeeModel(driver)
 
-# Root route for "API is running" message
+# Root route to check API status
 @app.route('/')
 def index():
     return "<h1>API is running</h1>"
 
-# Populate the database with sample data on startup
+# Optional: Initialize the database with sample data on startup
+# Uncomment if needed
 # @app.before_first_request
 # def initialize_database():
-#     print("Initializing database with sample data...")
 #     car_model.create_sample_cars()
 #     customer_model.create_sample_customers()
 #     employee_model.create_sample_employees()
-#     print("Database initialized with sample data.")
 
 # Register the main API blueprint
 app.register_blueprint(api_bp, url_prefix='/api')

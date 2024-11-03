@@ -10,7 +10,7 @@ car_bp = Blueprint('car_bp', __name__)
 def create_car():
     data = request.json
     car_model = CarModel(driver)  # Pass driver here
-    car = car_model.create_car(data['make'], data['model'], data['year'], data['location'], data['status'])
+    car = car_model.create_car(data['id'], data['make'], data['model'], data['year'], data['location'], data['status'], availability)
     return jsonify(car=car), 201
 
 @car_bp.route('/<int:car_id>', methods=['GET'])
