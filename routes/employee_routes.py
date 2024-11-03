@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.employee_model import EmployeeModel
 from db import driver
+from db import *
 
 # Initialize Blueprint for employee routes
 employee_bp = Blueprint('employee_bp', __name__)
@@ -35,10 +36,5 @@ def update_employee(employee_id):
 def delete_employee(employee_id):
     dry_run = request.args.get('dry_run', 'true').lower() == 'true'  # Defaults to dry run
     employee_model = EmployeeModel(driver)
-<<<<<<< HEAD
-    result = employee_model.delete_employee(employee_id)
-    return jsonify(result=result)
-=======
     result = employee_model.delete_employee(employee_id, dry_run=dry_run)
     return jsonify(message="Employee deleted" if not dry_run else "Dry run: Employee deletion rolled back"), 204 if not dry_run else 200
->>>>>>> espen

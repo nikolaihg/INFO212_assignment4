@@ -14,6 +14,7 @@ class EmployeeModel:
         """
         return self.execute_query(query)
 
+
     def create_employee(self, customer_id, name, address, branch):
         query = """
         CREATE (employee:Employee {customer_id: $customer_id, name: $name, address: $address, branch: $branch})

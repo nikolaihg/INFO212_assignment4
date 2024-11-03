@@ -2,11 +2,6 @@ from db import driver
 from db_utils import DatabaseSession  # Importing our DatabaseSession context managerpython -m api
 
 class CarModel:
-    def __init__(self, driver):
-        self.driver = driver
-        # Initialize other attributes as needed
-
-class CarModel:
     def __init__(self, driver, make=None, model=None, year=None, location=None, status=None):
         self.driver = driver
         self.make = make
@@ -17,21 +12,18 @@ class CarModel:
 
     def post_sample_cars(self):
         query = """
-        CREATE (car1:Car {make: 'Toyota', model: 'Corolla', year: 2020, location: 'Location A', status: 'available'})
-        WITH car1
-        CREATE (car2:Car {make: 'Honda', model: 'Civic', year: 2021, location: 'Location B', status: 'available'})
-        WITH car1, car2
-        CREATE (car3:Car {make: 'Ford', model: 'Focus', year: 2019, location: 'Location C', status: 'available'})
-        RETURN id(car1) AS car1_id, id(car2) AS car2_id, id(car3) AS car3_id
+        CREATE (car1:Car {car_id: 1, make: 'Toyota', model: 'Corolla', year: 2020, location: 'Location A', status: 'available'})
+        CREATE (car2:Car {car_id: 2, make: 'Honda', model: 'Civic', year: 2021, location: 'Location B', status: 'available'})
+        CREATE (car3:Car {car_id: 3, make: 'Ford', model: 'Focus', year: 2019, location: 'Location C', status: 'available'})
         """
         return self.execute_query(query)
 
-    def post_car(self, make, model, year, location, status, dry_run=False):
+    def create_car(self, car_id, make, model, year, location, status):
         query = """
         CREATE (car:Car {car_id: $car_id make: $make, model: $model, year: $year, location: $location, status: $status})
         RETURN car
         """
-        return self.execute_query(query, {"make": make, "model": model, "year": year, "location": location, "status": status})
+        return self.execute_query(query, {"car_id": car_id, "make": make, "model": model, "year": year, "location": location, "status": status})
     
     def read_car(self, car_id):
         query = "MATCH (car:Car) WHERE car.car_id = $car_id RETURN car"
@@ -55,7 +47,6 @@ class CarModel:
             query = "MATCH (c:Customer {customer_id: $customer_id})-[r:BOOKED]->(car:Car {car_id: $car_id}) SET car.status = 'rented'CREATE (c)-[:RENTED]->(car) DELETE r RETURN c, car"
             return self.execute_query(query, {"car_id": car_id, "customer_id": customer_id})
 
-
     def delete_car(self, car_id):
          query = "MATCH (car:Car) WHERE car.car_id = $car_id DELETE car"
          return self.execute_query(query, {"car_id": car_id})
@@ -70,19 +61,34 @@ class CarModel:
           else: 
                 return {"error": "Invalid status provided for the return operation."}
     
-
-    def execute_query(self, query, parameters=None, dry_run=False):
-        with DatabaseSession(self.driver, dry_run=dry_run) as session:
-            result = session.run(query, parameters)  # Run the query and store the result
-            return list(result)  # Convert the result to a list for easy iteration
-        # Convert the result to a JSON-serializable format
-            if result:
-            # If there is a single result, convert it to a dictionary
-                if isinstance(result.single(), dict):
-                    return result.single()
-                else:
-                    return {key: value for record in result for key, value in record.items()}
-            return None
-
-        
-        
+    def return_car(self, customer_id, car_id, status):
+          standard_query =  "MATCH (c:Customer {customer_id: $customer_id})-[r:RENTED]->(car:Car {car_id: $car_id}) SET car.status = 'available' DELETE r RETURN c, car" 
+          damaged_query = "MATCH (c:Customer {customer_id: $customer_id})-[r:RENTED]->(car:Car {car_id: $car_id}) SET car.status = 'damaged' DELETE r RETURN c, car"
+          if status == "damaged":
+               return self.execute_query(damaged_query)
+          elif status == "rented": 
+             return self.execute_query(standard_query, {"customer_id": customer_id, "car_id": car_id, "status": status})
+          else: 
+                return {"error": "Invalid status provided for the return operation."}
+    
+    def execute_query(self, query, parameters=None):
+        with self.driver.session() as session:
+            result = session.run(query, parameters)
+            
+            # List to store JSON-converted nodes
+            nodes_json = []
+            
+            # Process each record in the result
+            for record in result:
+                record_json = {}
+                
+                # Convert each node in the record (if present) to JSON
+                for key, value in record.items():
+                    if isinstance(value, neo4j.graph.Node):
+                        record_json[key] = node_to_json(value)
+                
+                # Only add to nodes_json if there's something in record_json
+                if record_json:
+                    nodes_json.append(record_json)
+                    
+            return nodes_json if nodes_json else None

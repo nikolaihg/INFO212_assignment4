@@ -1,3 +1,8 @@
+# UTILS: 
+def node_to_json(node):
+    node_properties = dict(node.items())
+    return node_properties
+
 class DatabaseSession:
     def __init__(self, driver, dry_run=False):
         self.driver = driver

@@ -90,3 +90,4 @@ def delete_car(car_id):
     car_model = CarModel(driver)
     car_model.delete_car(car_id, dry_run=dry_run)
     return jsonify(message="Car deleted" if not dry_run else "Dry run: Car deletion rolled back"), 204 if not dry_run else 200
+

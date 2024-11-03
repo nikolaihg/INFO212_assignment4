@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.car_model import CarModel
 from db import driver
+from db import *
 
 # Initialize Blueprint for rental routes
 rental_bp = Blueprint('rental_bp', __name__)
@@ -60,10 +61,6 @@ def rent_car():
 @rental_bp.route('/return-car', methods=['POST'])
 def return_car():
     data = request.json
-<<<<<<< HEAD
-    result = car_model.return_car(data['customer_id'], data['car_id'], data['status'])
-    return jsonify(result=result)
-=======
 
     if not all([data.get('customer_id'), data.get('car_id'), data.get('status')]):
         return jsonify({"error": "Missing required fields"}), 400
@@ -74,4 +71,3 @@ def return_car():
     result = car_model.return_car(data['customer_id'], data['car_id'], data['status'], dry_run=dry_run)
 
     return jsonify(result=result), 200 if dry_run else 204
->>>>>>> espen
