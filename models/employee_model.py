@@ -1,5 +1,6 @@
-# from neo4j import GraphDatabase
+from neo4j import GraphDatabase
 from db import driver
+from db_utils import DatabaseSession  # Importing our DatabaseSession context manager
 
 class EmployeeModel:
     def __init__(self, driver):
@@ -22,7 +23,7 @@ class EmployeeModel:
 
     # Additional CRUD operations here
 
-    def execute_query(self, query, parameters=None):
-        with self.driver.session() as session:
+    def execute_query(self, query, parameters=None, dry_run=True):
+        with DatabaseSession(self.driver, dry_run=dry_run) as session:
             result = session.run(query, parameters)
             return result.single() if result else None

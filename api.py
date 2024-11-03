@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 from flask import Flask, Blueprint
+=======
+from flask import Flask
+from flask import Blueprint
+>>>>>>> espen
 from routes.car_routes import car_bp
 from routes.customer_routes import customer_bp
 from routes.employee_routes import employee_bp
