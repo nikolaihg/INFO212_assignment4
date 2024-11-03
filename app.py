@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify
 from database import Config, db_session, close_db
+from controllers.car_controller import car_blueprint
 
 # Initialize the Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
+
+app.register_blueprint(car_blueprint)
 
 @app.route('/')
 def index():

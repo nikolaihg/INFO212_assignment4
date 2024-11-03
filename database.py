@@ -47,3 +47,6 @@ def close_db():
 def node_to_json(node):
     node_properties = dict(node.items())
     return node_properties
+
+def node_to_dict(node):
+    return node(dict)
