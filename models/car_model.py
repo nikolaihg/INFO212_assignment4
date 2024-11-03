@@ -1,5 +1,6 @@
-from db import driver
-from db_utils import DatabaseSession  # Importing our DatabaseSession context managerpython -m api
+import neo4j
+from db import driver, node_to_json
+from db_utils import DatabaseSession  # Importing our DatabaseSession context manager
 
 class CarModel:
     def __init__(self, driver, make=None, model=None, year=None, location=None, status=None):

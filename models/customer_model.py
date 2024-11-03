@@ -1,5 +1,5 @@
-from neo4j import GraphDatabase
-from db import driver
+import neo4j
+from db import driver, node_to_json
 from db_utils import DatabaseSession  # Importing our DatabaseSession context manager
 
 class CustomerModel:
