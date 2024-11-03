@@ -1,4 +1,4 @@
-from neo4j import GraphDatabase
+from neo4j import GraphDatabase, Driver, AsyncGraphDatabase, AsyncDriver
 from dotenv import load_dotenv
 import os
 
@@ -15,10 +15,15 @@ print(f"NEO4J_URI: {Config.NEO4J_URI}")
 print(f"NEO4J_USERNAME: {Config.NEO4J_USERNAME}")
 print(f"NEO4J_USERNAME: {Config.NEO4J_PASSWORD}")
 
-driver = GraphDatabase.driver(
-    Config.NEO4J_URI, auth=(Config.NEO4J_USERNAME, Config.NEO4J_PASSWORD)
-)
+# driver = GraphDatabase.driver(
+#     Config.NEO4J_URI, auth=(Config.NEO4J_USERNAME, Config.NEO4J_PASSWORD)
+# )
 
 def node_to_json(node):
     node_properties = dict(node.items())
     return node_properties
+
+def _get_connection() -> Driver:
+    driver = GraphDatabase.driver(Config.NEO4J_URI, auth=(Config.NEO4J_USERNAME, Config.NEO4J_PASSWORD))
+    driver.verify_connectivity()
+    return driver

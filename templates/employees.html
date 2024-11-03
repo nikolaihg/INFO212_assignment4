@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Employees {% endblock %}</h1>
+
+
+    <form method="post">
+        Name:<br/><input type="text" name="name"><br/>
+        Address:<br/><input type="text" name="address"><br/>
+        Branch:<br/><input type="text" name="branch"><br/>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h2>Content </h2>
+    {% for employee in employees %}
+        <p>{{ employee.name }}, 
+        Age: {{ employee.address}}
+        Address: {{ employee.branch}}</p>
+        {% endfor %}
+{% endblock %}

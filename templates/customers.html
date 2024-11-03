@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Customers {% endblock %}</h1>
+
+
+    <form method="post">
+        Name:<br/><input type="text" name="name"><br/>
+        Age:<br/><input type="number" step="1" pattern="\d+" name="age"><br/>
+        Address:<br/><input type="text" name="address"><br/>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h2>Content </h2>
+    {% for customer in customers %}
+        <p>{{ customer.name }}, 
+        Age: {{ customer.age}}
+        Address: {{ customer.address}}</p>
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Index {% endblock %}</h1>
+    <h1>Welcome to FlaskApp!</h1>
+    <h3>{{ utc_dt }}</h3>
+
+    <form method="get">
+        Username: <input type="text" name="username">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h2>Content </h2>
+    {% for car in cars %}
+        <p>{{ car.make }}, 
+        Model: {{ car.model}}</p>
+        {% endfor %}
+{% endblock %}
