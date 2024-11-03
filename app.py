@@ -1,14 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 # from neo4j import GraphDatabase
 from dotenv import load_dotenv
 from models import CarModel, CustomerModel, EmployeeModel
 from api import api_bp
 from db import driver  # Use the driver from db.py
+from routes.car_routes import car_bp
+from routes.rental_routes import rental_bp
+from routes.customer_routes import customer_bp
+from routes.employee_routes import employee_bp
 import os
 
 # Load environment variables
 load_dotenv()
-#Hei
+
 class Config:
     NEO4J_URI = os.getenv("NEO4J_URI")
     NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
@@ -17,7 +21,7 @@ class Config:
 
 # Initialize the Flask app
 app = Flask(__name__)
-app.config.from_object(Config)
+# app.config.from_object(Config)
 
 # # Initialize the Neo4j driver
 # driver = GraphDatabase.driver(Config.NEO4J_URI, auth=(Config.NEO4J_USERNAME, Config.NEO4J_PASSWORD))
@@ -32,31 +36,29 @@ employee_model = EmployeeModel(driver)
 def index():
     return "<h1>API is running</h1>"
 
-# # Populate the database with sample data on startup
-# @app.before_request
-# def initialize_database():
-#     print("Initializing database with sample data...")
-#     car_model.create_sample_cars()
-#     customer_model.create_sample_customers()
-#     employee_model.create_sample_employees()
-#     print("Database initialized with sample data.")
-
-# # Endpoint to create a new car
-# @app.route('/api/cars', methods=['POST'])
-# def create_car():
-#     data = request.json
-#     make = data.get('make')
-#     model = data.get('model')
-#     year = data.get('year')
-#     location = data.get('location')
-#     status = data.get('status')
-#     
-#     # Create the car in the database
-#     result = car_model.create_car(make, model, year, location, status)
-#     return jsonify(result=result), 201
+# Populate the database with sample data on startup
+# @app.before_first_request
+def initialize_database():
+    print("Initializing database with sample data...")
+    car_model.create_sample_cars()
+    customer_model.create_sample_customers()
+    employee_model.create_sample_employees()
+    print("Database initialized with sample data.")
 
 # Register the main API blueprint
 app.register_blueprint(api_bp, url_prefix='/api')
+
+# Register the car_bp blueprint
+app.register_blueprint(car_bp, url_prefix='/cars') 
+
+# Register rental_bp blueprint
+app.register_blueprint(rental_bp, url_prefix='/rentals')
+
+# Register customer_bp blueprint
+app.register_blueprint(customer_bp, url_prefix = '/customers' )
+
+# Register employee_bp blueprint
+app.register_blueprint(employee_bp, url_prefix = '/employees' )
 
 # Ensure the driver closes when the app stops
 @app.teardown_appcontext
@@ -66,4 +68,4 @@ def close_driver(exception=None):
 
 # Run the app
 if __name__ == "__main__":
-    app.run(debug=app.config['DEBUG'])
+    app.run(debug=Config.DEBUG)

@@ -13,12 +13,12 @@ class EmployeeModel:
         """
         return self.execute_query(query)
 
-    def create_employee(self, name, address, branch):
+    def create_employee(self, customer_id, name, address, branch):
         query = """
-        CREATE (employee:Employee {name: $name, address: $address, branch: $branch})
+        CREATE (employee:Employee {customer_id: $customer_id, name: $name, address: $address, branch: $branch})
         RETURN employee
         """
-        return self.execute_query(query, {"name": name, "address": address, "branch": branch})
+        return self.execute_query(query, {"customer_id": customer_id, "name": name, "address": address, "branch": branch})
 
     # Additional CRUD operations here
 
