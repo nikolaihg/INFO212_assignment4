@@ -23,3 +23,10 @@ NEO4J_URI=bolt://localhost:7687
 NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=your_password
 ```
+
+## 3. Run the flask app
+Run this command in the root directory:
+
+```bash
+flask run --debug
+```
