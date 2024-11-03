@@ -1,22 +1,20 @@
 from flask import Flask, request, jsonify
 from database import Config, db_session, close_db
 from controllers.car_controller import car_blueprint
+from controllers.customer_controller import customer_blueprint
+from controllers.employee_controller import employee_blueprint
 
-# Initialize the Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
 
-app.register_blueprint(car_blueprint)
+app.register_blueprint(car_blueprint, url_prefix='/cars')
+app.register_blueprint(customer_blueprint, url_prefix='/customers')
+app.register_blueprint(employee_blueprint, url_prefix='/employees')
+# app.register_blueprint(order_blueprint, url_prefix='/orders')
 
 @app.route('/')
 def index():
     return "<h1>API is running</h1>"
-
-# app.register_blueprint(api_bp, url_prefix='/api')
-# app.register_blueprint(car_bp, url_prefix='/cars') 
-# app.register_blueprint(rental_bp, url_prefix='/rentals')
-# app.register_blueprint(customer_bp, url_prefix = '/customers' )
-# app.register_blueprint(employee_bp, url_prefix = '/employees' )
 
 # Ensure the driver closes when the app stops
 @app.teardown_appcontext
