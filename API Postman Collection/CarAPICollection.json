@@ -1,0 +1,89 @@
+{
+    "info": {
+      "name": "Car API Collection",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Create Car",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"make\": \"Toyota\",\n    \"model\": \"Camry\",\n    \"year\": 2021,\n    \"location\": \"New York\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/cars/create",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["cars", "create"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Retrieve All Cars",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/cars/",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["cars", ""]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Update Car",
+        "request": {
+          "method": "PUT",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"make\": \"Toyota\",\n    \"model\": \"Camry\",\n    \"year\": 2022,\n    \"location\": \"Los Angeles\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/cars/1",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["cars", "1"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Delete Car",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/cars/1",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["cars", "1"]
+          }
+        },
+        "response": []
+      }
+    ]
+  }
+  
