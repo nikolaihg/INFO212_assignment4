@@ -1,0 +1,124 @@
+{
+    "info": {
+      "name": "Order API Collection",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Order Vehicle",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/order-car",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["order-car"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Retrieve All Orders",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/orders",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["orders"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Cancel Order",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/cancel-order-car",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["cancel-order-car"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Rent Car",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/rent-car",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["rent-car"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Return Car",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/return-car",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["return-car"]
+          }
+        },
+        "response": []
+      }
+    ]
+  }
+  
