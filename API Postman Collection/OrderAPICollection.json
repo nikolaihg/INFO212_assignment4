@@ -20,7 +20,7 @@
             "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
           },
           "url": {
-            "raw": "http://localhost:5000/order-car",
+            "raw": "http://localhost:5000/orders/order-car",
             "protocol": "http",
             "host": ["localhost"],
             "port": "5000",
@@ -60,7 +60,7 @@
             "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
           },
           "url": {
-            "raw": "http://localhost:5000/cancel-order-car",
+            "raw": "http://localhost:5000/orders/cancel-order-car",
             "protocol": "http",
             "host": ["localhost"],
             "port": "5000",
@@ -85,7 +85,7 @@
             "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
           },
           "url": {
-            "raw": "http://localhost:5000/rent-car",
+            "raw": "http://localhost:5000/orders/rent-car",
             "protocol": "http",
             "host": ["localhost"],
             "port": "5000",
@@ -110,7 +110,7 @@
             "raw": "{\n    \"customer_id\": 1,\n    \"car_id\": 101\n}"
           },
           "url": {
-            "raw": "http://localhost:5000/return-car",
+            "raw": "http://localhost:5000/orders/return-car",
             "protocol": "http",
             "host": ["localhost"],
             "port": "5000",
