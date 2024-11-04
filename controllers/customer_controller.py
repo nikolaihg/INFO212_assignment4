@@ -10,17 +10,12 @@ def generate_customer():
         customer = Customer.create_from_json(customer_info)
         return jsonify(customer), 201
     else:
-        print("Data is not JSON")
-        # TODO HTML
-        # customer_info = request.form.to_dict()
-        # customer = Customer.generate_from_json(customer_info)  
-        # return redirect(url_for('customer_blueprint.generate_customer'))
-
+        return jsonify({"Error": "Request must be JSON"}), 415
 
 @customer_blueprint.route('/', methods=['GET'])
 def retrieve_customers():
     customers = Customer.retrieve_all()
-    return render_template('customers.html', customers=customers)
+    return jsonify({"customers": customers}), 200  # TODO HTML
 
 @customer_blueprint.route('/<int:customer_id>', methods=['PUT'])
 def update_customer(customer_id):
