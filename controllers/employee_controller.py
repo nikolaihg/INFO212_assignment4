@@ -10,14 +10,12 @@ def generate_employee():
         employee = Employee.create_from_json(employee_info)
         return jsonify(employee), 201
     else:
-        employee_info = request.form.to_dict()
-        employee = Employee.create_from_json(employee_info)
-    return jsonify({"Error": "Request must be JSON"}), 415
+        return jsonify({"Error": "Request must be JSON"}), 415
 
 @employee_blueprint.route('/', methods=['GET'])
 def retrieve_employees():
     employees = Employee.get_all()
-    return render_template('employees.html', employees=employees)
+    return jsonify({"employees": employees}), 200  # TODO HTML
 
 @employee_blueprint.route('/<int:employee_id>', methods=['PUT'])
 def update_employee(employee_id):
