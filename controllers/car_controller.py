@@ -13,9 +13,6 @@ def generate_car():
     else:
         print("Data is not JSON")
         # TODO HTML Form version
-        # car_data = request.form.to_dict()
-        # car = Car.generate_from_json(car_data)  
-        # return redirect(url_for('car_blueprint.generate_cars'))
 
 @car_blueprint.route('/cars/', methods=['POST'])
 def create_car():
